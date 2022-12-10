@@ -1,9 +1,11 @@
 import "./App.css";
 import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [card, setCard] = useState(null);
+  const [foreignCard, setForeignCard] = useState(null);
 
   const fetchCard = () => {
     setCard(null);
@@ -20,8 +22,8 @@ function App() {
       `/translate?set=${clickedCard[0].set}&collector=${clickedCard[0].collector_number}`
     )
       .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch(() => console.log("No picture found")); // what do if there is no card ??????????????
+      .then((res) => setForeignCard(res.image_uris.normal))
+      .catch(() => window.alert("There is no Japanese card available.")); // what do if there is no card ??????????????
   };
 
   const handleKeyPress = (e) => {
@@ -37,6 +39,7 @@ function App() {
         onChange={(e) => setSearchQuery(e.target.value)}
       ></input>
       <button onClick={fetchCard}>Click to search card</button>
+      {foreignCard && <img className="foreign-card" src={foreignCard}></img>}
       <div className="card-container">
         {card &&
           card.map((el) => (

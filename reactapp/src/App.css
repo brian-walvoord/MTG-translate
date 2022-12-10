@@ -2,9 +2,16 @@
   height: 400px;
   width: auto;
   margin: 2rem;
+  cursor: pointer;
 }
 
 .card-container {
   display: flex;
   flex-flow: row wrap;
+}
+
+.foreign-card {
+  height: 400px;
+  width: auto;
+  margin: 2rem;
 }
