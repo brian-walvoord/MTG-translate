@@ -14,3 +14,8 @@ class Teacher(models.Model):
 class MyFirstTable(models.Model):
     firstCol = models.CharField(max_length=100)
     secondCol = models.IntegerField()
+
+
+class TranslatedCards(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    url = models.CharField(max_length=999999)

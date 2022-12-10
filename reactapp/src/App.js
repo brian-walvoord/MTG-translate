@@ -23,7 +23,7 @@ function App() {
     )
       .then((res) => res.json())
       .then((res) => setForeignCard(res.image_uris.normal))
-      .catch(() => window.alert("There is no Japanese card available.")); // what do if there is no card ??????????????
+      .catch(() => window.alert("There is no Japanese card available."));
   };
 
   const handleKeyPress = (e) => {
@@ -32,8 +32,15 @@ function App() {
     }
   };
 
+  const sendPost = () => {
+    fetch("/translate/", {
+      method: "POST",
+    });
+  };
+
   return (
-    <>
+    <div>
+      <button onClick={sendPost}>Click to send post request</button>
       <input
         onKeyPress={handleKeyPress}
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -52,7 +59,7 @@ function App() {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }
 

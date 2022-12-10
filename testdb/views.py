@@ -25,11 +25,25 @@ def search(request):
 
 
 def translate(request):
-    set = request.GET.get("set")
-    collector = request.GET.get("collector")
-    response = requests.get(
-        f"https://api.scryfall.com/cards/{set}/{collector}/ja")
-    if response.status_code == 200:
-        return HttpResponse(response, status=200)
-    else:
-        return HttpResponse(status=404)
+    match request.method:
+        case 'GET':
+            set = request.GET.get("set")
+            collector = request.GET.get("collector")
+            response = requests.get(
+                f"https://api.scryfall.com/cards/{set}/{collector}/ja")
+            if response.status_code == 200:
+                return HttpResponse(response, status=200)
+            else:
+                return HttpResponse(status=404)
+        case 'POST':
+            print("📯")
+            return HttpResponse(status=200)
+    # if request.method == "GET":
+    #     set = request.GET.get("set")
+    #     collector = request.GET.get("collector")
+    #     response = requests.get(
+    #         f"https://api.scryfall.com/cards/{set}/{collector}/ja")
+    #     if response.status_code == 200:
+    #         return HttpResponse(response, status=200)
+    #     else:
+    #         return HttpResponse(status=404)
