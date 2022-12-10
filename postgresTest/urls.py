@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('get-random-card/', views.randomness, name="randomness"),
     path('search-card/', views.search, name="search"),
+    path('translate/', views.translate, name="translate"),
 ]

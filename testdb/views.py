@@ -15,10 +15,21 @@ def index(request):
 
 def randomness(request):
     response = requests.get('https://api.scryfall.com/cards/random')
-    return HttpResponse(response)
+    return HttpResponse(response, status=200)
 
 
 def search(request):
     query = request.GET.get("query")
     response = requests.get(f"https://api.scryfall.com/cards/search?q={query}")
-    return HttpResponse(response)
+    return HttpResponse(response, status=200)
+
+
+def translate(request):
+    set = request.GET.get("set")
+    collector = request.GET.get("collector")
+    response = requests.get(
+        f"https://api.scryfall.com/cards/{set}/{collector}/ja")
+    if response.status_code == 200:
+        return HttpResponse(response, status=200)
+    else:
+        return HttpResponse(status=404)

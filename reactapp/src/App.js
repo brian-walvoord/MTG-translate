@@ -12,6 +12,18 @@ function App() {
       .then((res) => setCard(res.data));
   };
 
+  const changeToJapanese = (uri) => {
+    let clickedCard = card.filter(
+      (el) => el.image_uris && el.image_uris.normal === uri
+    );
+    fetch(
+      `/translate?set=${clickedCard[0].set}&collector=${clickedCard[0].collector_number}`
+    )
+      .then((res) => res.json())
+      .then((res) => console.log(res))
+      .catch(() => console.log("No picture found")); // what do if there is no card ??????????????
+  };
+
   const handleKeyPress = (e) => {
     if (e.which === 13) {
       fetchCard();
@@ -28,11 +40,9 @@ function App() {
       <div className="card-container">
         {card &&
           card.map((el) => (
-            <div
-              // onClick={(e) => changeToJapanese(e.target.src)}
-              key={el.oracle_id}
-            >
+            <div key={el.oracle_id}>
               <img
+                onClick={(e) => changeToJapanese(e.target.src)}
                 className="card"
                 src={el.image_uris ? el.image_uris.normal : null}
               />
