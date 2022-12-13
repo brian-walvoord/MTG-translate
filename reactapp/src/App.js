@@ -1,6 +1,5 @@
 import "./App.css";
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,7 +41,7 @@ function App() {
     <div>
       <button onClick={sendPost}>Click to send post request</button>
       <input
-        onKeyPress={handleKeyPress}
+        onKeyUp={handleKeyPress}
         onChange={(e) => setSearchQuery(e.target.value)}
       ></input>
       <button onClick={fetchCard}>Click to search card</button>
