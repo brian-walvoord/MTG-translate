@@ -62,13 +62,6 @@ function App() {
   return (
     <div>
       <h2 className="page-title">MTG Translator</h2>
-      {/* <div className="search-container">
-        <input
-          onKeyUp={handleKeyPress}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        ></input>
-        <button onClick={fetchCard}>Search</button>
-      </div> */}
       <div className="foreign-card-container">
         <h1>Translated Cards</h1>
         {data &&

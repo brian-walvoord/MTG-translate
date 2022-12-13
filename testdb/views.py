@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from django.urls import path
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 import pip._vendor.requests as requests
 from .models import TranslatedCards
-import json
 
 # # Create your views here.
 
@@ -22,7 +20,7 @@ def randomness(request):
     return HttpResponse(response, status=200)
 
 
-def load_db_data(request):  # fetch all data from database to load on page
+def load_db_data(request):
     db_data = serializers.serialize("json", TranslatedCards.objects.all())
     return JsonResponse(db_data, safe=False, status=200)
 
