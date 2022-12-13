@@ -23,4 +23,6 @@ urlpatterns = [
     path('get-random-card/', views.randomness, name="randomness"),
     path('search-card/', views.search, name="search"),
     path('translate/', views.translate, name="translate"),
+    path('load_db_data/', views.load_db_data, name="load_db_data"),
+    path('remove/', views.remove, name="remove"),
 ]

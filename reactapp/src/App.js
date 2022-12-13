@@ -1,10 +1,17 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [card, setCard] = useState(null);
   const [foreignCard, setForeignCard] = useState(null);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch("/load_db_data")
+      .then((res) => res.json())
+      .then((res) => setData(JSON.parse(res)));
+  }, [foreignCard]);
 
   const fetchCard = () => {
     setCard(null);
@@ -18,11 +25,26 @@ function App() {
       (el) => el.image_uris && el.image_uris.normal === uri
     );
     fetch(
-      `/translate?set=${clickedCard[0].set}&collector=${clickedCard[0].collector_number}`
+      `/translate/?set=${clickedCard[0].set}&collector=${clickedCard[0].collector_number}`,
+      {
+        method: "POST",
+      }
     )
       .then((res) => res.json())
-      .then((res) => setForeignCard(res.image_uris.normal))
+      .then((res) => {
+        setForeignCard(res.image_uris.normal);
+        window.alert("Card Translated!");
+      })
       .catch(() => window.alert("There is no Japanese card available."));
+  };
+
+  const removeCard = async (url) => {
+    await fetch(`/remove/?url=${url}`, {
+      method: "DELETE",
+    });
+    fetch("/load_db_data")
+      .then((res) => res.json())
+      .then((res) => setData(JSON.parse(res)));
   };
 
   const handleKeyPress = (e) => {
@@ -39,13 +61,33 @@ function App() {
 
   return (
     <div>
-      <button onClick={sendPost}>Click to send post request</button>
-      <input
-        onKeyUp={handleKeyPress}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      ></input>
-      <button onClick={fetchCard}>Click to search card</button>
-      {foreignCard && <img className="foreign-card" src={foreignCard}></img>}
+      <h2 className="page-title">MTG Translator</h2>
+      {/* <div className="search-container">
+        <input
+          onKeyUp={handleKeyPress}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        ></input>
+        <button onClick={fetchCard}>Search</button>
+      </div> */}
+      <div className="foreign-card-container">
+        <h1>Translated Cards</h1>
+        {data &&
+          data.map((e) => (
+            <img
+              onClick={(e) => removeCard(e.target.src)}
+              className="foreign-card"
+              src={e.fields.url}
+            ></img>
+          ))}
+      </div>
+      <div className="search-container">
+        <input
+          onKeyUp={handleKeyPress}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        ></input>
+        <button onClick={fetchCard}>Search</button>
+      </div>
+      <h1 className="search-title">Search Results</h1>
       <div className="card-container">
         {card &&
           card.map((el) => (
@@ -58,6 +100,7 @@ function App() {
             </div>
           ))}
       </div>
+      <div className="footer"></div>
     </div>
   );
 }

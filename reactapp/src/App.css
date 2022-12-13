@@ -1,3 +1,9 @@
+body {
+  background-image: url("../public/wallpapersden.com_aurelia-magic-the-gathering_1920x1200.jpg");
+  background-attachment: fixed;
+  overscroll-behavior: none;
+}
+
 .card {
   height: 400px;
   width: auto;
@@ -8,10 +14,63 @@
 .card-container {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .foreign-card {
   height: 400px;
   width: auto;
   margin: 2rem;
+  cursor: pointer;
+}
+
+.foreign-card:active, .card:active {
+  filter: brightness(50%);
+}
+
+.foreign-card-container {
+  border-bottom: 5px solid black;
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h1 {
+  background-color: black;
+  width: fit-content;
+  color: white;
+  font-size: 75px;
+  margin-bottom: 2rem;
+}
+
+.search-title {
+  margin-left: 2.5%;
+}
+
+.search-container {
+  margin-left: 2.5%;
+  margin-top: 2rem;
+}
+
+input {
+  height: 30px;
+  width: 500px;
+  font-size: 30px;
+}
+
+button {
+  font-size: 30px;
+}
+
+.page-title {
+  font-size: 150px;
+  margin-top: 2rem;
+  font-family:fantasy;
+  margin-bottom: 1rem;
+  color: black;
+  width: fit-content;
+}
+
+.footer {
+  height: 10rem;
 }
