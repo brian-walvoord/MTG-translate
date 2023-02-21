@@ -25,7 +25,11 @@
 # App Instructions
 Searching for a card will bring up all English cards in the scryfall database that have images. Since this app is all built around a GUI, cards without an image in the database are excluded from results. 
 
+<img alt="search section" width="100%" src="./images/search_section.png"/>
+
 Once users find the card they are looking for, they can simply click on the card and will be notified whether the card has been successfully translated into Japanese or if there is not a Japanese card equivalent available. If the card is available, it will be instantly added to the translated cards section at the top of the page.
+
+<img alt="translation section" width="100%" src="./images/translation_section.png"/>
 
 NOTE: The app only translates initial English search results to Japanese! Future updates will include other languages.
 
